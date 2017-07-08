@@ -1,6 +1,8 @@
 hash: 9341d46d85ca5c3d542e467c1f230abf06444e43f0d858682bb0d24b426a1520
-updated: 2017-07-08T15:38:09.886965824+09:00
+updated: 2017-07-08T16:38:19.844081378+09:00
 imports:
+- name: github.com/valyala/bytebufferpool
+  version: e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
 - name: github.com/valyala/quicktemplate
   version: 6abbd1b822699a4925c76df1740b266f17c2c9ae
   subpackages:
