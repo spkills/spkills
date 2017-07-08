@@ -1,0 +1,19 @@
+{% code
+type MainPage struct {
+}
+%}
+
+
+{% func (p *MainPage) Title() %}
+	This is the main page
+{% endfunc %}
+
+
+{% func (p *MainPage) Body() %}
+	<h1>Main page</h1>
+	<div>
+	</div>
+	<div>
+		Some info about you:<br/>
+	</div>
+{% endfunc %}
