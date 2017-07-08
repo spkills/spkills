@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"spkills/controller"
+	"github.com/spkills/spkills/controller"
 )
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
