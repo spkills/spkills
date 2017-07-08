@@ -1,5 +1,6 @@
 {% code
 type MainPage struct {
+    ReceiveMsg string
 }
 %}
 
@@ -12,6 +13,7 @@ type MainPage struct {
 {% func (p *MainPage) Body() %}
 	<h1>Main page</h1>
 	<div>
+	    {%s p.ReceiveMsg %}
 	</div>
 	<div>
 		Some info about you:<br/>

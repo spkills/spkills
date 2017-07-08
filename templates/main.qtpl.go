@@ -19,79 +19,85 @@ var (
 
 //line main.qtpl:2
 type MainPage struct {
+	ReceiveMsg string
 }
 
-//line main.qtpl:7
+//line main.qtpl:8
 func (p *MainPage) StreamTitle(qw422016 *qt422016.Writer) {
-	//line main.qtpl:7
+	//line main.qtpl:8
 	qw422016.N().S(`
 	This is the main page
 `)
-//line main.qtpl:9
+//line main.qtpl:10
 }
 
-//line main.qtpl:9
+//line main.qtpl:10
 func (p *MainPage) WriteTitle(qq422016 qtio422016.Writer) {
-	//line main.qtpl:9
+	//line main.qtpl:10
 	qw422016 := qt422016.AcquireWriter(qq422016)
-	//line main.qtpl:9
+	//line main.qtpl:10
 	p.StreamTitle(qw422016)
-	//line main.qtpl:9
+	//line main.qtpl:10
 	qt422016.ReleaseWriter(qw422016)
-//line main.qtpl:9
+//line main.qtpl:10
 }
 
-//line main.qtpl:9
+//line main.qtpl:10
 func (p *MainPage) Title() string {
-	//line main.qtpl:9
+	//line main.qtpl:10
 	qb422016 := qt422016.AcquireByteBuffer()
-	//line main.qtpl:9
+	//line main.qtpl:10
 	p.WriteTitle(qb422016)
-	//line main.qtpl:9
+	//line main.qtpl:10
 	qs422016 := string(qb422016.B)
-	//line main.qtpl:9
+	//line main.qtpl:10
 	qt422016.ReleaseByteBuffer(qb422016)
-	//line main.qtpl:9
+	//line main.qtpl:10
 	return qs422016
-//line main.qtpl:9
+//line main.qtpl:10
 }
 
-//line main.qtpl:12
+//line main.qtpl:13
 func (p *MainPage) StreamBody(qw422016 *qt422016.Writer) {
-	//line main.qtpl:12
+	//line main.qtpl:13
 	qw422016.N().S(`
 	<h1>Main page</h1>
 	<div>
+	    `)
+	//line main.qtpl:16
+	qw422016.E().S(p.ReceiveMsg)
+	//line main.qtpl:16
+	qw422016.N().S(`
 	</div>
 	<div>
 		Some info about you:<br/>
 	</div>
 `)
-//line main.qtpl:19
+//line main.qtpl:21
 }
 
-//line main.qtpl:19
+//line main.qtpl:21
 func (p *MainPage) WriteBody(qq422016 qtio422016.Writer) {
-	//line main.qtpl:19
+	//line main.qtpl:21
 	qw422016 := qt422016.AcquireWriter(qq422016)
-	//line main.qtpl:19
+	//line main.qtpl:21
 	p.StreamBody(qw422016)
-	//line main.qtpl:19
+	//line main.qtpl:21
 	qt422016.ReleaseWriter(qw422016)
-//line main.qtpl:19
+//line main.qtpl:21
 }
 
-//line main.qtpl:19
+//line main.qtpl:21
 func (p *MainPage) Body() string {
-	//line main.qtpl:19
+	//line main.qtpl:21
 	qb422016 := qt422016.AcquireByteBuffer()
-	//line main.qtpl:19
+	//line main.qtpl:21
 	p.WriteBody(qb422016)
-	//line main.qtpl:19
+	//line main.qtpl:21
 	qs422016 := string(qb422016.B)
-	//line main.qtpl:19
+	//line main.qtpl:21
 	qt422016.ReleaseByteBuffer(qb422016)
-	//line main.qtpl:19
+	//line main.qtpl:21
 	return qs422016
-//line main.qtpl:19
+//line main.qtpl:21
 }
