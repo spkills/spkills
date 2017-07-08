@@ -12,3 +12,10 @@
 ## template
 
 * https://github.com/valyala/quicktemplate#quick-start
+
+```
+go get -u github.com/valyala/quicktemplate
+go get -u github.com/valyala/quicktemplate/qtc
+
+template dirの中でqtc コマンドを実行
+```
