@@ -19,3 +19,6 @@ logs/*
 !logs/.gitkeep
 run/*
 !run/.gitkeep
+
+#idea ide
+.idea/
