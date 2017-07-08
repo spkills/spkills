@@ -1,0 +1,4 @@
+package: github.com/spkills/spkills
+import: 
+  - package: github.com/valyala/quicktemplate
+  - package: github.com/valyala/quicktemplate/qtc
