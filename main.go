@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
+
+	"github.com/spkills/spkills/controller"
 )
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "瞬殺の美学")
+	controller.RootController(w, r)
 }
 
 func main() {
