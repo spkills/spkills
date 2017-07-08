@@ -36,3 +36,21 @@ go get -u github.com/valyala/quicktemplate/qtc
 
 template dirの中でqtc コマンドを実行
 ```
+
+
+## セットアップ
+Nginxとかのコンフィグを固定したいので、ルート直下にリンクをはる
+
+```
+$ sudo ln -s $PWD /
+```
+
+## nginx起動方法
+
+```
+# nginx start
+$ sudo nginx -c /spkills/etc/nginx/nginx.conf
+
+# nginx stop
+$ sudo kill $(cat /tmp/nginx.pid)
+```
