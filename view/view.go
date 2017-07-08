@@ -6,7 +6,7 @@ import (
 )
 
 func RootView(w http.ResponseWriter, str string) {
-	p := &templates.MainPage{}
+	p := &templates.MainPage{ReceiveMsg: str}
 	templates.WritePageTemplate(w,p)
 	//fmt.Fprintf(w, templates.Hello(str))
 }
