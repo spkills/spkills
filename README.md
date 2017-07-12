@@ -45,12 +45,11 @@ Nginxとかのコンフィグを固定したいので、ルート直下にリン
 $ sudo ln -s $PWD /
 ```
 
-## nginx起動方法
+## nginxまわり
 
 ```
-# nginx start
-$ sudo nginx -c /spkills/etc/nginx/nginx.conf
-
-# nginx stop
-$ sudo kill $(cat /tmp/nginx.pid)
+$ scripts/nginx start
+$ scripts/nginx stop
+$ scripts/nginx restart
+$ scripts/nginx configtest
 ```
