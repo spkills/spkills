@@ -1,13 +1,15 @@
 package controller
 
 import (
-	"net/http"
-
 	"github.com/spkills/spkills/model"
 	"github.com/spkills/spkills/view"
+	"github.com/valyala/fasthttp"
 )
 
-func RootController(w http.ResponseWriter, r *http.Request) {
+func RootController(ctx *fasthttp.RequestCtx) {
 	res := model.RootModel()
-	view.RootView(w, res)
+
+	ctx.SetContentType("text/html; charset=utf-8")
+	ctx.SetStatusCode(fasthttp.StatusOK)
+	view.RootView(ctx, res)
 }

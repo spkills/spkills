@@ -1,12 +1,12 @@
 package view
 
 import (
-	"net/http"
 	"github.com/spkills/spkills/templates"
+	"github.com/valyala/fasthttp"
 )
 
-func RootView(w http.ResponseWriter, str string) {
+func RootView(ctx *fasthttp.RequestCtx, str string) {
 	p := &templates.MainPage{ReceiveMsg: str}
-	templates.WritePageTemplate(w,p)
+	templates.WritePageTemplate(ctx, p)
 	//fmt.Fprintf(w, templates.Hello(str))
 }
