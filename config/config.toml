@@ -6,3 +6,4 @@ port = "3306"
 user = "isucon"
 password = "HogeHoge00"
 db_name = "isuketch"
+max_conn = 10

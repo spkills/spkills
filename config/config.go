@@ -9,5 +9,6 @@ type Config struct {
 		User     string `toml:"user"`
 		Password string `toml:"password"`
 		DbName   string `toml:"db_name"`
+		MaxConn  int    `toml:"max_conn"`
 	} `toml:"database"`
 }

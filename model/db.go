@@ -30,7 +30,9 @@ func InitDB(conf config.Config) {
 	fmt.Println(dsn)
 
 	var err error
+
 	db, err = sql.Open("mysql", dsn)
+
 	if err != nil {
 		log.Panic(err)
 	}
@@ -38,4 +40,6 @@ func InitDB(conf config.Config) {
 	if err = db.Ping(); err != nil {
 		log.Panic(err)
 	}
+
+	db.SetMaxIdleConns(conf.Database.MaxConn)
 }
