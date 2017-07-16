@@ -1,0 +1,54 @@
+#!/bin/sh
+
+nginx="/usr/local/bin/nginx"
+CONFGILE="/spkills/etc/nginx/nginx.conf"
+PIDFILE=/tmp/nginx.pid
+PID="xxxx"
+
+if [ -e $PIDFILE ]; then
+    PID="$(cat $PIDFILE)"
+fi
+
+is_run() {
+    if [ "$PID" = "xxxx" ]; then
+	return 1
+    fi
+    return 0
+}
+
+start() {
+    sudo $nginx -c $CONFGILE
+    echo start
+}
+
+stop() {
+    sudo kill "$(cat $PIDFILE)"
+    echo stop
+}
+
+configtest() {
+    echo configtest
+    sudo $nginx -t -c $CONFGILE
+}
+
+case "$1" in
+    start)
+	is_run && exit 0
+	$1
+	;;
+    stop)
+	is_run || exit 0
+	$1
+	;;
+    restart)
+	configtest
+	is_run && stop
+	start
+	;;
+    configtest)
+	$1
+	;;
+    *)
+	echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest}"
+	exit 2
+esac
