@@ -69,13 +69,13 @@ func compileFile(infile string) {
 	}
 
 	fmt.Fprint(outf, "package main\n")
-	fmt.Fprint(outf, "import(\"fmt\")\n")
+	fmt.Fprint(outf, "import(\"fmt\"\n\"net/http\")\n")
 
 	scanner := bufio.NewScanner(fp)
 	for scanner.Scan() {
 		funcname := scanner.Text()
 		fmt.Println(funcname)
-		fmt.Fprintf(outf, "func %sHandler(){\nfmt.Println(\"test\")\n}\n", funcname)
+		fmt.Fprintf(outf, "func %sHandler(w http.ResponseWriter, r *http.Request){\nfmt.Println(\"test\")\n}\n", funcname)
 	}
 	if err := scanner.Err(); err != nil {
 		panic(err)

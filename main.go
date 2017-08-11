@@ -14,6 +14,7 @@ import (
 
 var conf config.Config
 
+//go:generate cmd/ready/ready -file=route.conf
 func main() {
 	_, err := toml.DecodeFile("config/config.toml", &conf)
 	if err != nil {
