@@ -1,27 +1,24 @@
 package main
 
-import (
-	"bufio"
-	"flag"
-	"fmt"
-	"go/format"
-	"io/ioutil"
-	"os"
-)
+import "os"
 
-var (
-	file = flag.String("file", "route.conf", "Path to route.conf file")
-)
-
+//var (
+//	file = flag.String("file", "route.conf", "Path to route.conf file")
+//)
+/*
+func regist(mux *http.ServeMux) {
+	mux.HandleFunc("/sandbox", sandboxHandler)
+	mux.HandleFunc("/error", errorHandler)
+	mux.HandleFunc("/hogehoge", hogehogeHandler)
+	mux.HandleFunc("/test", testHandler)
+}
+*/
 func main() {
-	flag.Parse()
-
-	if len(*file) > 0 {
-		compileFile(*file)
-		return
-	}
+	cli := &Ready{outStream: os.Stdout, errStream: os.Stderr}
+	os.Exit(cli.Run(os.Args))
 }
 
+/*
 func compileSingleFile(filename string) {
 	var fp *os.File
 	var err error
@@ -55,16 +52,10 @@ func compileFile(infile string) {
 	}
 	defer fp.Close()
 
-	inf, err := os.Open(infile)
-	if err != nil {
-		fmt.Printf("cannot open file %q: %s", infile, err)
-		panic(err)
-	}
-
 	tmpfile := outfile + ".tmp"
 	outf, err := os.Create(tmpfile)
 	if err != nil {
-		fmt.Sprintf("cannot create file %q: %s", tmpfile, err)
+		fmt.Sprintf("cannot createHandler file %q: %s", tmpfile, err)
 		panic(err)
 	}
 
@@ -83,10 +74,6 @@ func compileFile(infile string) {
 
 	if err = outf.Close(); err != nil {
 		fmt.Printf("error when closing file %q: %s", tmpfile, err)
-		panic(err)
-	}
-	if err = inf.Close(); err != nil {
-		fmt.Printf("error when closing file %q: %s", infile, err)
 		panic(err)
 	}
 
@@ -112,3 +99,4 @@ func compileFile(infile string) {
 	}
 
 }
+*/
