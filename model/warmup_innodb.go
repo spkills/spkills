@@ -1,20 +1,21 @@
 package model
 
-func WarmUpInnoDB() ([]string, error) {
-	rows, err := db.Query("SHOW TABLES")
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
+import (
+	"github.com/rmanzoku/friction"
+)
 
-	tables := make([]string, 0)
-	for rows.Next() {
-		var ret string
-		err := rows.Scan(&ret)
+func WarmUpInnoDB() ([]string, error) {
+	tables, _ := friction.ShowTables(db)
+
+	for _, t := range tables {
+		columns, err := friction.GetIndexColumns(db, t)
 		if err != nil {
-			return nil, err
+			panic(err)
 		}
-		tables = append(tables, ret)
+
+		for _, c := range columns {
+			friction.WarmUp(db, t, c, 1)
+		}
 	}
 
 	return tables, nil
