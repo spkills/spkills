@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
 	// use mysq
 	_ "github.com/go-sql-driver/mysql"
@@ -13,23 +14,27 @@ import (
 var db *sql.DB
 
 func InitDB(conf config.Config) {
-	fmt.Println(conf.Database.User)
-	fmt.Println(conf.Database.Password)
-	fmt.Println(conf.Database.Server)
-	fmt.Println(conf.Database.Port)
-	fmt.Println(conf.Database.DbName)
+	var connectTo string
+	_, err := os.Stat(conf.Database.SocketFile)
+
+	if err == nil {
+		connectTo = fmt.Sprintf("unix(%s)", conf.Database.SocketFile)
+	} else {
+		connectTo = fmt.Sprintf("tcp(%s:%s)", conf.Database.Server, conf.Database.Port)
+	}
+
 	dsn := fmt.Sprintf(
-		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true&loc=Local",
+		"%s:%s@%s/%s?charset=%s&parseTime=%s&loc=%s",
 		conf.Database.User,
 		conf.Database.Password,
-		conf.Database.Server,
-		conf.Database.Port,
+		connectTo,
 		conf.Database.DbName,
+		"utf8mb4",
+		"true",
+		"Local",
 	)
 
-	fmt.Println(dsn)
-
-	var err error
+	log.Println(dsn)
 
 	db, err = sql.Open("mysql", dsn)
 

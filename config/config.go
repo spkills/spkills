@@ -4,6 +4,7 @@ package config
 type Config struct {
 	Title    string `toml:"title"`
 	Database struct {
+		SocketFile   string `toml:"socket_file"`
 		Server       string `toml:"server"`
 		Port         string `toml:"port"`
 		User         string `toml:"user"`
