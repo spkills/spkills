@@ -41,5 +41,5 @@ func InitDB(conf config.Config) {
 		log.Panic(err)
 	}
 
-	db.SetMaxIdleConns(conf.Database.MaxConn)
+	db.SetMaxIdleConns(conf.Database.MaxIdleConns)
 }

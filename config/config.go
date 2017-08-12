@@ -4,11 +4,11 @@ package config
 type Config struct {
 	Title    string `toml:"title"`
 	Database struct {
-		Server   string `toml:"server"`
-		Port     string `toml:"port"`
-		User     string `toml:"user"`
-		Password string `toml:"password"`
-		DbName   string `toml:"db_name"`
-		MaxConn  int    `toml:"max_conn"`
+		Server       string `toml:"server"`
+		Port         string `toml:"port"`
+		User         string `toml:"user"`
+		Password     string `toml:"password"`
+		DbName       string `toml:"db_name"`
+		MaxIdleConns int    `toml:"max_idle_conns"`
 	} `toml:"database"`
 }
