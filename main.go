@@ -28,6 +28,7 @@ func main() {
 
 	router.GET("/", controller.RootController)
 	router.GET("/warming", controller.WarmingController)
+	controller.Regist(router)
 
 	log.Fatal(fasthttp.ListenAndServeUNIX(socketFile, os.FileMode(777), router.Handler))
 

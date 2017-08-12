@@ -60,7 +60,7 @@ func regist(mux *http.ServeMux) {
 }
 */
 func (r *Ready) createRegister(filename string, funcs []string) {
-	outfile := filename + ".go"
+	outfile := "controller/" + filename + ".go"
 	tmpfile := outfile + ".tmp"
 
 	outf, err := os.Create(tmpfile)
@@ -70,12 +70,12 @@ func (r *Ready) createRegister(filename string, funcs []string) {
 	}
 
 	fmt.Printf("Compiling %q to %q...", filename, outfile)
-	fmt.Fprint(outf, "package main\n")
-	fmt.Fprint(outf, "import(\"fmt\"\n\"net/http\")\n")
-	fmt.Fprint(outf, "func regist(mux *http.ServeMux) {\n")
+	fmt.Fprint(outf, "package controller\n")
+	fmt.Fprint(outf, "import(\"github.com/buaazp/fasthttprouter\")\n")
+	fmt.Fprint(outf, "func Regist(router *fasthttprouter.Router) {\n")
 
 	for _, v := range funcs {
-		fmt.Fprintf(outf, "mux.HandleFunc(\"/%s\", %sHandler)\n", v, v)
+		fmt.Fprintf(outf, "router.GET(\"/%s\", %sHandler)\n", v, v)
 	}
 
 	fmt.Fprint(outf, "}")
@@ -108,8 +108,13 @@ func (r *Ready) createRegister(filename string, funcs []string) {
 
 func (r *Ready) createHandler(filename string) {
 
-	outfile := filename + ".go"
+	outfile := "controller/" + filename + ".go"
 	fmt.Printf("Compiling %q to %q...", filename, outfile)
+
+	if r.fileExists(outfile) {
+		fmt.Println("file exists")
+		return
+	}
 
 	tmpfile := outfile + ".tmp"
 	outf, err := os.Create(tmpfile)
@@ -118,10 +123,10 @@ func (r *Ready) createHandler(filename string) {
 		panic(err)
 	}
 
-	fmt.Fprint(outf, "package main\n")
-	fmt.Fprint(outf, "import(\"fmt\"\n\"net/http\")\n")
+	fmt.Fprint(outf, "package controller\n")
+	fmt.Fprint(outf, "import(\"fmt\"\n\"github.com/valyala/fasthttp\")\n")
 	fmt.Println(filename)
-	fmt.Fprintf(outf, "func %sHandler(w http.ResponseWriter, r *http.Request){\nfmt.Println(\"test\")\n}\n", filename)
+	fmt.Fprintf(outf, "func %sHandler(ctx *fasthttp.RequestCtx){\nfmt.Println(\"test\")\n}\n", filename)
 
 	if err = outf.Close(); err != nil {
 		fmt.Printf("error when closing file %q: %s", tmpfile, err)
@@ -148,4 +153,9 @@ func (r *Ready) createHandler(filename string) {
 		fmt.Printf("error when removing file %q: %s", tmpfile, err)
 		panic(err)
 	}
+}
+
+func (r *Ready) fileExists(filename string) bool {
+	_, err := os.Stat(filename)
+	return err == nil
 }
