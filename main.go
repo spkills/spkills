@@ -22,12 +22,19 @@ func main() {
 
 	model.InitDB(conf)
 
-	socketFile := "/spkills/run/spkills.sock"
 	router := fasthttprouter.New()
 
 	router.GET("/", controller.RootController)
 	router.GET("/warming", controller.WarmingController)
 
-	log.Fatal(fasthttp.ListenAndServeUNIX(socketFile, os.FileMode(777), router.Handler))
+	if conf.Server.SocketFile != "" {
+		socketFile := conf.Server.SocketFile
+		log.Println("Start listening: " + socketFile)
+		log.Fatal(fasthttp.ListenAndServeUNIX(socketFile, os.FileMode(777), router.Handler))
+	} else {
+		listenAddr := "0.0.0.0:" + conf.Server.Port
+		log.Println("Start listening: " + listenAddr)
+		log.Fatal(fasthttp.ListenAndServe(listenAddr, router.Handler))
+	}
 
 }
