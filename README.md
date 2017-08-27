@@ -14,23 +14,32 @@ glideを使うのが良さそう。
 [github](https://github.com/Masterminds/glide)
 [Qiita](http://qiita.com/tienlen/items/8e192e68d6b18bec3b4a)
 
-1. glideのインストール
-```
-go get github.com/Masterminds/glide
-go install github.com/Masterminds/glide
-```
-
-2. 依存モジュールのインストール
-```
-glide install or glide update
-```
-
 ## template
 
 * https://github.com/valyala/quicktemplate#quick-start
 template dirの中でqtc コマンドを実行して吐き出されたやつをcommit
 
 ## セットアップ
+### 最初にインストールするモジュール
+```
+go get -u -t github.com/Masterminds/glide
+go get -u -t github.com/volatiletech/sqlboiler
+```
+
+### 依存モジュールのインストール
+```
+glide install
+```
+
+### go generateの実行
+ルーティングとDBのモデルを生成する
+* route.confを更新
+* sqlboiler.tomlを更新
+
+```
+$ go generate
+```
+
 ### nginxまわり
 Nginxとかのコンフィグを固定したいので、ルート直下にリンクをはる
 
