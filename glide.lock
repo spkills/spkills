@@ -1,8 +1,12 @@
-hash: 14bc413644e4e659df53fa29bfc9b0cb100af36758efee6d12e2b9ee973265a2
-updated: 2017-07-16T15:53:47.918999255+09:00
+hash: 79acad1287ae5a0f286e5a8e7d848279435cf395b1c1f259619337b6feb94ea0
+updated: 2017-08-27T15:59:57.293252467+09:00
 imports:
 - name: github.com/buaazp/fasthttprouter
   version: ade4e2031af3aed7fffd241084aad80a58faf421
+- name: github.com/BurntSushi/toml
+  version: a368813c5e648fee92e5f6c30e3944ff9d5e8895
+- name: github.com/go-sql-driver/mysql
+  version: 26471af196a17ee75a22e6481b5a5897fb16b081
 - name: github.com/klauspost/compress
   version: f3dce52e0576655d55fd69e74b63da96ad1108f3
   subpackages:
