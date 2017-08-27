@@ -1,6 +1,13 @@
 package: github.com/spkills/spkills
 import:
-  - package: github.com/valyala/quicktemplate
-  - package: github.com/valyala/quicktemplate/qtc
-  - package: github.com/valyala/fasthttp
-  - package: github.com/buaazp/fasthttprouter
+- package: github.com/BurntSushi/toml
+  version: ~0.3.0
+- package: github.com/buaazp/fasthttprouter
+  version: ~0.1.1
+- package: github.com/go-sql-driver/mysql
+  version: ~1.3.0
+- package: github.com/rmanzoku/friction
+- package: github.com/valyala/fasthttp
+  version: ~20160617.0.0
+- package: github.com/valyala/quicktemplate
+  version: ~20160617.0.0

@@ -1,8 +1,12 @@
 hash: 14bc413644e4e659df53fa29bfc9b0cb100af36758efee6d12e2b9ee973265a2
-updated: 2017-07-16T15:53:47.918999255+09:00
+updated: 2017-08-12T18:11:29.424618997+09:00
 imports:
 - name: github.com/buaazp/fasthttprouter
   version: ade4e2031af3aed7fffd241084aad80a58faf421
+- name: github.com/BurntSushi/toml
+  version: a368813c5e648fee92e5f6c30e3944ff9d5e8895
+- name: github.com/go-sql-driver/mysql
+  version: 3955978caca48c1658a4bb7a9c6a0f084e326af3
 - name: github.com/klauspost/compress
   version: f3dce52e0576655d55fd69e74b63da96ad1108f3
   subpackages:
@@ -10,11 +14,13 @@ imports:
   - gzip
   - zlib
 - name: github.com/klauspost/cpuid
-  version: 09cded8978dc9e80714c4d85b0322337b0a1e5e0
+  version: ae7887de9fa5d2db4eaa8174a7eff2c1ac00f2da
+- name: github.com/rmanzoku/friction
+  version: 98daba66eebeec23b1d7e1594b82d64249a9fd97
 - name: github.com/valyala/bytebufferpool
   version: e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
 - name: github.com/valyala/fasthttp
-  version: 52a0993b96f032dea57fa93081d7c0a1aa906430
+  version: ae643c872d2c060154a4fb2162dc1c0ab1693ccd
   subpackages:
   - fasthttputil
   - stackless
