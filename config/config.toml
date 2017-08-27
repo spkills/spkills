@@ -1,7 +1,11 @@
 title = "spkills"
 
+[server]
+# socket_file = "/spkills/run/spkills.sock"
+port = "8080"
+
 [database]
-# socket_file = "/tmp/mysql.sock"
+socket_file = "/tmp/mysql.sock"
 server = "127.0.0.1"
 port = "3306"
 user = "isucon"
