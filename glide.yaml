@@ -7,3 +7,4 @@ import:
 - package: github.com/valyala/fasthttp
 - package: github.com/valyala/quicktemplate
 - package: github.com/valyala/quicktemplate/qtc
+- package: github.com/volatiletech/sqlboiler
