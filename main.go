@@ -14,6 +14,7 @@ import (
 
 var conf config.Config
 
+//go:generate cmd/ready/ready -file=route.conf
 func main() {
 	_, err := toml.DecodeFile("config/config.toml", &conf)
 	if err != nil {
@@ -26,6 +27,7 @@ func main() {
 
 	router.GET("/", controller.RootController)
 	router.GET("/warming", controller.WarmingController)
+	controller.Regist(router)
 
 	if conf.Server.SocketFile != "" {
 		socketFile := conf.Server.SocketFile
