@@ -1,5 +1,5 @@
-hash: 79acad1287ae5a0f286e5a8e7d848279435cf395b1c1f259619337b6feb94ea0
-updated: 2017-08-27T15:59:57.293252467+09:00
+hash: 593b7710a8d80a3b43985a44fc8ddc00dc2ac6d62b1a2a2ea9188a8f9261928a
+updated: 2017-08-27T16:28:17.542707686+09:00
 imports:
 - name: github.com/buaazp/fasthttprouter
   version: ade4e2031af3aed7fffd241084aad80a58faf421
@@ -15,6 +15,8 @@ imports:
   - zlib
 - name: github.com/klauspost/cpuid
   version: 09cded8978dc9e80714c4d85b0322337b0a1e5e0
+- name: github.com/rmanzoku/friction
+  version: 9f71726225d839465b5612433b0ea845aa2834d8
 - name: github.com/valyala/bytebufferpool
   version: e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
 - name: github.com/valyala/fasthttp

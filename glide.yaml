@@ -1,8 +1,9 @@
 package: github.com/spkills/spkills
 import:
-  - package: github.com/valyala/quicktemplate
-  - package: github.com/valyala/quicktemplate/qtc
-  - package: github.com/valyala/fasthttp
-  - package: github.com/buaazp/fasthttprouter
-  - package: github.com/go-sql-driver/mysql
-  - package: github.com/BurntSushi/toml
+- package: github.com/BurntSushi/toml
+- package: github.com/buaazp/fasthttprouter
+- package: github.com/go-sql-driver/mysql
+- package: github.com/rmanzoku/friction
+- package: github.com/valyala/fasthttp
+- package: github.com/valyala/quicktemplate
+- package: github.com/valyala/quicktemplate/qtc
