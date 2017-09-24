@@ -1,5 +1,5 @@
-hash: 593b7710a8d80a3b43985a44fc8ddc00dc2ac6d62b1a2a2ea9188a8f9261928a
-updated: 2017-08-27T16:28:17.542707686+09:00
+hash: 474199c167a303863d9a831bb3c58fd5264f015b164a7885c582c43d2d8f4fd6
+updated: 2017-08-27T17:36:20.410694614+09:00
 imports:
 - name: github.com/buaazp/fasthttprouter
   version: ade4e2031af3aed7fffd241084aad80a58faf421
@@ -28,4 +28,6 @@ imports:
   version: 6abbd1b822699a4925c76df1740b266f17c2c9ae
   subpackages:
   - qtc
+- name: github.com/volatiletech/sqlboiler
+  version: 86c580f53724a794e2f807707653f480616d455d
 testImports: []

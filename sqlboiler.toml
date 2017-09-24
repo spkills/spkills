@@ -1,0 +1,10 @@
+output="sqlboil_models2"
+pkgname="model2"
+no-tests=true
+[mysql]
+  dbname="isuketch"
+  host="localhost"
+  port=3306
+  user="isucon"
+  pass="isucon"
+  sslmode="false"

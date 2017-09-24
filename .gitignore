@@ -19,6 +19,8 @@ logs/*
 !logs/.gitkeep
 run/*
 !run/.gitkeep
+sqlboil_models/*
+!sqlboil_models/.gitkeep
 
 #idea ide
 .idea/
