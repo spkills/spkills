@@ -23,6 +23,7 @@ func main() {
 	}
 
 	model.InitDB(conf)
+	model.InitCache()
 
 	router := fasthttprouter.New()
 
