@@ -24,3 +24,6 @@ sqlboil_models/*
 
 #idea ide
 .idea/
+
+.DS_Store
+
