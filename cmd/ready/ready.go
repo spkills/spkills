@@ -6,6 +6,7 @@ import "io"
 const (
 	ExitCodeOK = iota
 	ExitCodeParseFlagError
+	ExitCodeNG
 )
 
 type Ready struct {

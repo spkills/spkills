@@ -1,0 +1,3 @@
+output="sqlboil_models"
+pkgname="model"
+no-tests=true
