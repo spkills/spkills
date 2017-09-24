@@ -1,3 +1,6 @@
+output="sqlboil_models2"
+pkgname="model2"
+no-tests=true
 [mysql]
   dbname="isuketch"
   host="localhost"

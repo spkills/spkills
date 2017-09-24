@@ -15,7 +15,7 @@ import (
 var conf config.Config
 
 //go:generate cmd/ready/ready -file=route.conf
-//go:generate sqlboiler mysql -o sqlboil_models -p model  --no-tests
+//go:generate sqlboiler mysql
 func main() {
 	_, err := toml.DecodeFile("config/config.toml", &conf)
 	if err != nil {
