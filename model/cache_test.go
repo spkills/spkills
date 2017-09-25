@@ -3,6 +3,8 @@ package model
 import (
 	"testing"
 	"time"
+
+	"github.com/spkills/spkills/repository"
 )
 
 func TestInitCache(t *testing.T) {
@@ -17,11 +19,15 @@ func TestInitCache(t *testing.T) {
 
 func TestFetchByCache(t *testing.T) {
 	InitCache()
-	closureA := func(id int) interface{} {
-		return id
+	closureA := func(args ...interface{}) interface{} {
+		return 1
 	}
-	closureB := func(id int) interface{} {
+	closureB := func(args ...interface{}) interface{} {
 		return "piyo"
+	}
+	closureC := func(id int64) *repository.Room {
+		room := &repository.Room{}
+		return room
 	}
 	t.Run("キャッシュがなければ関数の値", func(t *testing.T) {
 		result := FetchByCache("hoge", 10*time.Second, closureA, 1)
@@ -47,6 +53,13 @@ func TestFetchByCache(t *testing.T) {
 		result := FetchByCache("fuga", 10*time.Second, closureB, 1)
 		if result.(string) != "bbb" {
 			t.Fatalf("closureB called")
+		}
+	})
+	t.Run("キャッシュがなければ関数の値(C)", func(t *testing.T) {
+		result := FetchByCache("fuga", 10*time.Second, closureC, 1)
+		room := result.(*repository.Room)
+		if room.Name != "" {
+			t.Fatalf("closureB not called")
 		}
 	})
 }
