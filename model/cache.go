@@ -9,5 +9,5 @@ import (
 var Cache *cache.Cache
 
 func InitCache() {
-	Cache = cache.New(5*time.Minute, 10*time.Minute)\
+	Cache = cache.New(5*time.Minute, 10*time.Minute)
 }
