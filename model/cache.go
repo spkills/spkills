@@ -15,13 +15,13 @@ func InitCache() {
 func FetchByCache(
 	key string,
 	expire time.Duration,
-	fn func(id int) int,
+	fn func(id int) interface{},
 	arg int,
-) int {
+) interface{} {
 	val, found := Cache.Get(key)
 	if !found {
 		val = fn(arg)
 		Cache.Set(key, val, expire)
 	}
-	return val.(int)
+	return val
 }
