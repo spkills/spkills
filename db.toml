@@ -1,0 +1,3 @@
+output="repository"
+pkgname="repository"
+no-tests=true
