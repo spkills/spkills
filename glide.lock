@@ -1,5 +1,5 @@
-hash: 474199c167a303863d9a831bb3c58fd5264f015b164a7885c582c43d2d8f4fd6
-updated: 2017-08-27T17:36:20.410694614+09:00
+hash: f516362b669d6b214b748c7bc23ed78fc0e817c7ef7e562934ec75fe5f157195
+updated: 2017-09-24T23:01:34.53028526+09:00
 imports:
 - name: github.com/buaazp/fasthttprouter
   version: ade4e2031af3aed7fffd241084aad80a58faf421
@@ -15,6 +15,10 @@ imports:
   - zlib
 - name: github.com/klauspost/cpuid
   version: 09cded8978dc9e80714c4d85b0322337b0a1e5e0
+- name: github.com/patrickmn/go-cache
+  version: a3647f8e31d79543b2d0f0ae2fe5c379d72cedc0
+- name: github.com/pkg/errors
+  version: 2b3a18b5f0fb6b4f9190549597d3f962c02bc5eb
 - name: github.com/rmanzoku/friction
   version: 9f71726225d839465b5612433b0ea845aa2834d8
 - name: github.com/valyala/bytebufferpool
@@ -28,6 +32,13 @@ imports:
   version: 6abbd1b822699a4925c76df1740b266f17c2c9ae
   subpackages:
   - qtc
+- name: github.com/volatiletech/inflect
+  version: e7201282ae8da26cd97aed2e516f75c0bd91bb93
 - name: github.com/volatiletech/sqlboiler
   version: 86c580f53724a794e2f807707653f480616d455d
+  subpackages:
+  - boil
+  - queries
+  - queries/qm
+  - strmangle
 testImports: []
