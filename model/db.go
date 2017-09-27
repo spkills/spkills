@@ -9,6 +9,7 @@ import (
 	// use mysq
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/spkills/spkills/config"
+	"github.com/volatiletech/sqlboiler/boil"
 )
 
 var db *sql.DB
@@ -34,7 +35,7 @@ func InitDB(conf config.Config) {
 		"Local",
 	)
 
-	log.Println(dsn)
+	//log.Println(dsn)
 
 	db, err = sql.Open("mysql", dsn)
 
@@ -47,4 +48,5 @@ func InitDB(conf config.Config) {
 	}
 
 	db.SetMaxIdleConns(conf.Database.MaxIdleConns)
+	boil.SetDB(db)
 }
