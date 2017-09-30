@@ -9,6 +9,55 @@ import (
 	"github.com/spkills/spkills/repository"
 )
 
+func FetchRoomNameByDB(roomId int) string {
+	room, _ := repository.FindRoomG(int64(roomId))
+	return room.Name
+}
+
+func FetchRoomNameByCache(roomId int) string {
+	key := fmt.Sprintf("roomName:%d", roomId)
+	var roomName string
+	val, found := Cache.Get(key)
+	if found {
+		roomName = val.(string)
+		//fmt.Printf("cache(db)\n")
+	} else {
+		room, err := repository.FindRoomG(int64(roomId))
+		if err != nil {
+			//
+		}
+		roomName = room.Name
+		Cache.Set(key, roomName, 10*time.Second)
+		//fmt.Printf("cache(cache)\n")
+	}
+	//fmt.Printf("cache %+v\n", room)
+	return roomName
+}
+func FetchRoomNameByRedis(roomId int) string {
+	key := fmt.Sprintf("roomName:%d", roomId)
+	var roomName string
+	val, err := redisClient.Get(key).Result()
+	if err == redis.Nil {
+		room, err := repository.FindRoomG(int64(roomId))
+		if err != nil {
+			//
+		}
+		roomName = room.Name
+		err = redisClient.Set(key, roomName, 10*time.Second).Err()
+		if err != nil {
+			panic(err)
+		}
+		//fmt.Printf("redis(db)\n")
+	} else if err != nil {
+		panic(err)
+	} else {
+		roomName = val
+		//fmt.Printf("redis(cache)\n")
+	}
+	//fmt.Printf("redis %+v\n", room)
+	return roomName
+}
+
 func FetchRoomByDB(roomId int) *repository.Room {
 	room, _ := repository.FindRoomG(int64(roomId))
 	return room
