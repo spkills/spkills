@@ -4,14 +4,13 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"go/format"
 	"html/template"
-	"io/ioutil"
 	"os"
 )
 
 var (
-	file = flag.String("file", "route.conf", "Path to route.conf file")
+	file          = flag.String("file", "route.conf", "Path to route.conf file")
+	templatesPath = flag.String("templatesPath", "templates", "Path to route.conf file")
 )
 
 func main() {
@@ -20,13 +19,15 @@ func main() {
 }
 
 func (r *Ready) Create(args []string) int {
-
 	// オプション引数のパース
-	var infile string
+	var infile, inDir string
 	flags := flag.NewFlagSet("awesome-cli", flag.ContinueOnError)
 	flags.SetOutput(r.errStream)
-	flags.StringVar(&infile, "file", "route.conf", "Path to route.conf file")
+	flag.Parse()
+	flags.StringVar(&infile, "file", *file, "Path to route.conf file")
+	flags.StringVar(&inDir, "templatesPath", *templatesPath, "Path to route.conf file")
 
+	fmt.Println(inDir)
 	fp, err := os.Open(infile)
 	if err != nil {
 		fmt.Println(err)
@@ -38,114 +39,51 @@ func (r *Ready) Create(args []string) int {
 	for scanner.Scan() {
 		filename := scanner.Text()
 		files = append(files, filename)
-		r.createHandler(filename)
+		r.createHandler(inDir, filename)
 
 	}
-	r.createRegister("register", files)
+	r.createRegister("register", inDir, files)
 
 	return ExitCodeOK
 }
 
-/*
-func regist(mux *http.ServeMux) {
-	mux.HandleFunc("/sandbox", sandboxHandler)
-	mux.HandleFunc("/error", errorHandler)
-	mux.HandleFunc("/hogehoge", hogehogeHandler)
-	mux.HandleFunc("/test", testHandler)
-}
-*/
-func (r *Ready) createRegister(filename string, funcs []string) {
+func (r *Ready) createRegister(filename, inDir string, funcs []string) {
 	outfile := "controller/" + filename + ".go"
-	tmpfile := outfile + ".tmp"
 
-	outf, err := os.Create(tmpfile)
+	//execute template
+	outf, err := os.Create(outfile)
 	if err != nil {
-		fmt.Sprintf("cannot createHandler file %q: %s", tmpfile, err)
+		fmt.Sprintf("cannot createHandler file %q: %s", outfile, err)
 		panic(err)
 	}
 
-	//execute template
-	tpl := template.Must(template.ParseFiles("templates/register.tmpl"))
+	tpl := template.Must(template.ParseFiles(inDir + "/register.tmpl"))
 	err = tpl.Execute(outf, funcs)
 	if err != nil {
 		panic(err)
 	}
-
-	if err = outf.Close(); err != nil {
-		fmt.Printf("error when closing file %q: %s", tmpfile, err)
-		panic(err)
-	}
-
-	// prettify the output file
-	uglyCode, err := ioutil.ReadFile(tmpfile)
-	if err != nil {
-		fmt.Printf("cannot read file %q: %s", tmpfile, err)
-	}
-
-	prettyCode, err := format.Source(uglyCode)
-	if err != nil {
-		fmt.Printf("error when formatting compiled code for %q: %s. See %q for details", filename, err, tmpfile)
-		panic(err)
-	}
-
-	if err = ioutil.WriteFile(outfile, prettyCode, 0666); err != nil {
-		fmt.Printf("error when writing file %q: %s", outfile, err)
-		panic(err)
-	}
-	if err = os.Remove(tmpfile); err != nil {
-		fmt.Printf("error when removing file %q: %s", tmpfile, err)
-		panic(err)
-	}
 }
 
-func (r *Ready) createHandler(filename string) {
+func (r *Ready) createHandler(filename, inDir string) {
 
-	outfile := "controller/" + filename + ".go"
-	fmt.Printf("Compiling %q to %q...", filename, outfile)
+	outfile := "controller/" + inDir + ".go"
+	fmt.Printf("Compiling %q to %q...\n", filename, outfile)
 
 	if r.fileExists(outfile) {
 		fmt.Println("file exists")
 		return
 	}
 
-	//create tempfile
-	tmpfile := outfile + ".tmp"
-	outf, err := os.Create(tmpfile)
+	outf, err := os.Create(outfile)
 	if err != nil {
-		fmt.Sprintf("cannot createHandler file %q: %s", tmpfile, err)
+		fmt.Sprintf("cannot createHandler file %q: %s", outfile, err)
 		panic(err)
 	}
 
 	//execute template
-	tpl := template.Must(template.ParseFiles("templates/handler.tmpl"))
+	tpl := template.Must(template.ParseFiles(*templatesPath + "/handler.tmpl"))
 	err = tpl.Execute(outf, filename)
 	if err != nil {
-		panic(err)
-	}
-
-	if err = outf.Close(); err != nil {
-		fmt.Printf("error when closing file %q: %s", tmpfile, err)
-		panic(err)
-	}
-
-	// prettify the output file
-	uglyCode, err := ioutil.ReadFile(tmpfile)
-	if err != nil {
-		fmt.Printf("cannot read file %q: %s", tmpfile, err)
-	}
-
-	prettyCode, err := format.Source(uglyCode)
-	if err != nil {
-		fmt.Printf("error when formatting compiled code for %q: %s. See %q for details", filename, err, tmpfile)
-		panic(err)
-	}
-
-	if err = ioutil.WriteFile(outfile, prettyCode, 0666); err != nil {
-		fmt.Printf("error when writing file %q: %s", outfile, err)
-		panic(err)
-	}
-	if err = os.Remove(tmpfile); err != nil {
-		fmt.Printf("error when removing file %q: %s", tmpfile, err)
 		panic(err)
 	}
 }

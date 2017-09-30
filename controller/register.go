@@ -5,5 +5,7 @@ import (
 )
 
 func Regist(router *fasthttprouter.Router) {
-	router.GET("/sandbox", sandboxHandler)
+    
+    router.GET("/sandbox", sandboxHandler)
+    
 }
