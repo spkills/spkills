@@ -16,4 +16,10 @@ type Config struct {
 		DbName       string `toml:"db_name"`
 		MaxIdleConns int    `toml:"max_idle_conns"`
 	} `toml:"database"`
+	Redis struct {
+		Server   string `toml:"server"`
+		Port     int    `toml:"port"`
+		DB       int    `toml:"db"`
+		Password string `toml:"password"`
+	} `toml:"redis"`
 }

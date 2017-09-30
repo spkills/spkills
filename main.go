@@ -24,6 +24,7 @@ func main() {
 
 	model.InitDB(conf)
 	model.InitCache()
+	//model.InitRedis(conf) // redis起動してないと落ちる
 
 	router := fasthttprouter.New()
 
