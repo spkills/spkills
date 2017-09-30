@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"go/format"
+	"html/template"
 	"io/ioutil"
 	"os"
 )
@@ -15,10 +16,10 @@ var (
 
 func main() {
 	cli := &Ready{outStream: os.Stdout, errStream: os.Stderr}
-	os.Exit(cli.Run(os.Args))
+	os.Exit(cli.Create(os.Args))
 }
 
-func (r *Ready) Run(args []string) int {
+func (r *Ready) Create(args []string) int {
 
 	// オプション引数のパース
 	var infile string
@@ -63,16 +64,13 @@ func (r *Ready) createRegister(filename string, funcs []string) {
 		panic(err)
 	}
 
-	fmt.Printf("Compiling %q to %q...", filename, outfile)
-	fmt.Fprint(outf, "package controller\n")
-	fmt.Fprint(outf, "import(\"github.com/buaazp/fasthttprouter\")\n")
-	fmt.Fprint(outf, "func Regist(router *fasthttprouter.Router) {\n")
-
-	for _, v := range funcs {
-		fmt.Fprintf(outf, "router.GET(\"/%s\", %sHandler)\n", v, v)
+	//execute template
+	tpl := template.Must(template.ParseFiles("templates/register.tmpl"))
+	err = tpl.Execute(outf, funcs)
+	if err != nil {
+		panic(err)
 	}
 
-	fmt.Fprint(outf, "}")
 	if err = outf.Close(); err != nil {
 		fmt.Printf("error when closing file %q: %s", tmpfile, err)
 		panic(err)
@@ -110,6 +108,7 @@ func (r *Ready) createHandler(filename string) {
 		return
 	}
 
+	//create tempfile
 	tmpfile := outfile + ".tmp"
 	outf, err := os.Create(tmpfile)
 	if err != nil {
@@ -117,10 +116,12 @@ func (r *Ready) createHandler(filename string) {
 		panic(err)
 	}
 
-	fmt.Fprint(outf, "package controller\n")
-	fmt.Fprint(outf, "import(\"fmt\"\n\"github.com/valyala/fasthttp\")\n")
-	fmt.Println(filename)
-	fmt.Fprintf(outf, "func %sHandler(ctx *fasthttp.RequestCtx){\nfmt.Println(\"test\")\n}\n", filename)
+	//execute template
+	tpl := template.Must(template.ParseFiles("templates/handler.tmpl"))
+	err = tpl.Execute(outf, filename)
+	if err != nil {
+		panic(err)
+	}
 
 	if err = outf.Close(); err != nil {
 		fmt.Printf("error when closing file %q: %s", tmpfile, err)
