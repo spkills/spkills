@@ -1,12 +1,18 @@
-hash: 8ee27370ec12144e75c92cb2bc7d40f9854a3fae2b6a379b7c1602050712c531
-updated: 2017-09-27T00:04:29.732856675+09:00
+hash: 29b7ca7c351dca199250264b7846d26aa6a16742a69583d3b775add289f7e6df
+updated: 2017-10-01T17:24:51.999498681+09:00
 imports:
 - name: github.com/buaazp/fasthttprouter
   version: ade4e2031af3aed7fffd241084aad80a58faf421
 - name: github.com/BurntSushi/toml
   version: a368813c5e648fee92e5f6c30e3944ff9d5e8895
 - name: github.com/go-redis/redis
-  version: 34ce349cb7b166233b5b56f441a6c0ac38c3da68
+  version: 9c20773cb24624a4ad05cddb60583b61f4ffa701
+  subpackages:
+  - internal
+  - internal/consistenthash
+  - internal/hashtag
+  - internal/pool
+  - internal/proto
 - name: github.com/go-sql-driver/mysql
   version: 26471af196a17ee75a22e6481b5a5897fb16b081
 - name: github.com/klauspost/compress
@@ -23,6 +29,10 @@ imports:
   version: 2b3a18b5f0fb6b4f9190549597d3f962c02bc5eb
 - name: github.com/rmanzoku/friction
   version: 9f71726225d839465b5612433b0ea845aa2834d8
+- name: github.com/ugorji/go
+  version: 54210f4e076c57f351166f0ed60e67d3fca57a36
+  subpackages:
+  - codec
 - name: github.com/valyala/bytebufferpool
   version: e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7
 - name: github.com/valyala/fasthttp

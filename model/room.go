@@ -1,12 +1,12 @@
 package model
 
 import (
-	"encoding/json"
 	"fmt"
 	"time"
 
 	"github.com/go-redis/redis"
 	"github.com/spkills/spkills/repository"
+	"github.com/ugorji/go/codec"
 )
 
 func FetchRoomNameByDB(roomId int) string {
@@ -93,23 +93,26 @@ func FetchRoomByRedis(roomId int) *repository.Room {
 		if err != nil {
 			//
 		}
-		// いったんjsonでbyteにしてから、文字列を渡す必要がある
-		out, err := json.Marshal(room)
+
+		mh := codec.MsgpackHandle{RawToString: true}
+		var encoded []byte
+		encoder := codec.NewEncoderBytes(&encoded, &mh)
+		if err := encoder.Encode(room); err != nil {
+			panic(err)
+		}
+		err = redisClient.Set(key, string(encoded), 10*time.Second).Err()
 		if err != nil {
 			panic(err)
 		}
-		err = redisClient.Set(key, string(out), 10*time.Second).Err()
-		if err != nil {
-			panic(err)
-		}
+
 		//fmt.Printf("redis(db)\n")
 	} else if err != nil {
 		panic(err)
 	} else {
-		// いったん文字列をbyte配列にメモリコピーしてデシリアライズする
 		room = &repository.Room{}
-		err := json.Unmarshal([]byte(val), room)
-		if err != nil {
+		mh := codec.MsgpackHandle{RawToString: true}
+		decoder := codec.NewDecoderBytes([]byte(val), &mh)
+		if err := decoder.Decode(room); err != nil {
 			panic(err)
 		}
 		//fmt.Printf("redis(cache)\n")

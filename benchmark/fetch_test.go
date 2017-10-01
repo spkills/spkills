@@ -15,6 +15,8 @@ func BenchmarkSelectByDb(b *testing.B) {
 		// Error Handling
 	}
 	model.InitDB(conf)
+	model.InitCache()
+	model.InitRedis(conf)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		model.FetchRoomByDB(1)
@@ -29,6 +31,7 @@ func BenchmarkSelectByCache(b *testing.B) {
 	}
 	model.InitDB(conf)
 	model.InitCache()
+	model.InitRedis(conf)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		model.FetchRoomByCache(1)
@@ -42,6 +45,7 @@ func BenchmarkSelectByRedis(b *testing.B) {
 		// Error Handling
 	}
 	model.InitDB(conf)
+	model.InitCache()
 	model.InitRedis(conf)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
