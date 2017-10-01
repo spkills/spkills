@@ -13,13 +13,13 @@ var redisClient *redis.Client
 func InitRedis(conf config.Config) {
 	var addr string
 	var network string
-	_, err := os.Stat(conf.Database.SocketFile)
+	_, err := os.Stat(conf.Redis.SocketFile)
 	if err == nil {
 		network = "unix"
 		addr = conf.Redis.SocketFile
 	} else {
 		network = "tcp"
-		addr = fmt.Sprintf("%s:%s", conf.Redis.Server, conf.Redis.Port)
+		addr = fmt.Sprintf("%s:%d", conf.Redis.Server, conf.Redis.Port)
 	}
 
 	redisClient = redis.NewClient(&redis.Options{
