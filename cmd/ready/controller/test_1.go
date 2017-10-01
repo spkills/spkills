@@ -6,5 +6,5 @@ import (
 )
 
 func test_1Handler(ctx *fasthttp.RequestCtx) {
-	fmt.Println("test")
+	fmt.Println("test_1")
 }

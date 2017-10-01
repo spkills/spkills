@@ -39,7 +39,7 @@ func (r *Ready) Create(args []string) int {
 	for scanner.Scan() {
 		filename := scanner.Text()
 		files = append(files, filename)
-		r.createHandler(inDir, filename)
+		r.createHandler(filename, inDir)
 
 	}
 	r.createRegister("register", inDir, files)
@@ -66,7 +66,7 @@ func (r *Ready) createRegister(filename, inDir string, funcs []string) {
 
 func (r *Ready) createHandler(filename, inDir string) {
 
-	outfile := "controller/" + inDir + ".go"
+	outfile := "controller/" + filename + ".go"
 	fmt.Printf("Compiling %q to %q...\n", filename, outfile)
 
 	if r.fileExists(outfile) {
@@ -81,7 +81,7 @@ func (r *Ready) createHandler(filename, inDir string) {
 	}
 
 	//execute template
-	tpl := template.Must(template.ParseFiles(*templatesPath + "/handler.tmpl"))
+	tpl := template.Must(template.ParseFiles(inDir + "/handler.tmpl"))
 	err = tpl.Execute(outf, filename)
 	if err != nil {
 		panic(err)
