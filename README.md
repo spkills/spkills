@@ -72,3 +72,21 @@ $ mysql -u root < isucon6-final/webapp/sql/02_initial_data.sql
 mysql> GRANT USAGE ON *.* TO 'isucon'@'localhost';
 mysql> GRANT ALL PRIVILEGES ON 'isuketch'.* TO 'isucon'@'localhost';
 ```
+
+### redisまわり
+####インストール
+```
+$ brew install redis
+```
+
+#### socket接続を有効にする
+`/usr/local/etc/redis.conf`の`unixsocket`と`unixsocketperm`を編集する
+```
+unixsocket /tmp/redis.sock
+unixsocketperm 755
+```
+
+#### 起動
+```
+$ redis-server /usr/local/etc/redis.conf
+```
