@@ -30,7 +30,7 @@ func main() {
 
 	router.GET("/", controller.RootController)
 	router.GET("/warming", controller.WarmingController)
-	controller.Regist(router)
+	controller.AddRouting(router)
 
 	if conf.Server.SocketFile != "" {
 		socketFile := conf.Server.SocketFile

@@ -42,22 +42,22 @@ func (r *Ready) Create(args []string) int {
 		r.createHandler(filename, inDir)
 
 	}
-	r.createRegister("register", inDir, files)
+	r.createRoutingFile(inDir, files)
 
 	return ExitCodeOK
 }
 
-func (r *Ready) createRegister(filename, inDir string, funcs []string) {
-	outfile := "controller/" + filename + ".go"
+func (r *Ready) createRoutingFile(inDir string, funcs []string) {
+	outfile := "controller/routing.go"
 
 	//execute template
 	outf, err := os.Create(outfile)
 	if err != nil {
-		fmt.Sprintf("cannot createHandler file %q: %s", outfile, err)
+		fmt.Printf("cannot createHandler file %q: %s\n", outfile, err)
 		panic(err)
 	}
 
-	tpl := template.Must(template.ParseFiles(inDir + "/register.tmpl"))
+	tpl := template.Must(template.ParseFiles(inDir + "/routing.tmpl"))
 	err = tpl.Execute(outf, funcs)
 	if err != nil {
 		panic(err)
@@ -76,7 +76,7 @@ func (r *Ready) createHandler(filename, inDir string) {
 
 	outf, err := os.Create(outfile)
 	if err != nil {
-		fmt.Sprintf("cannot createHandler file %q: %s", outfile, err)
+		fmt.Printf("cannot createHandler file %q: %s\n", outfile, err)
 		panic(err)
 	}
 
