@@ -1,15 +1,40 @@
 package controller
 
 import (
-	"github.com/spkills/spkills/model"
-	"github.com/spkills/spkills/view"
+	"fmt"
 	"github.com/valyala/fasthttp"
 )
 
-func sandboxHandler(ctx *fasthttp.RequestCtx) {
-	res := model.RootModel()
+func sandboxGetHandler(ctx *fasthttp.RequestCtx) {
+
+	name := "sandbox"
 
 	ctx.SetContentType("text/html; charset=utf-8")
 	ctx.SetStatusCode(fasthttp.StatusOK)
-	view.RootView(ctx, res)
+	fmt.Fprintf(ctx, name)
+
+}
+
+func sandboxPostHandler(ctx *fasthttp.RequestCtx) {
+	ctx.SetContentType("text/html; charset=utf-8")
+	ctx.SetStatusCode(fasthttp.StatusNotImplemented)
+	fmt.Fprintf(ctx, "NotImplemented")
+}
+
+func sandboxPutHandler(ctx *fasthttp.RequestCtx) {
+	ctx.SetContentType("text/html; charset=utf-8")
+	ctx.SetStatusCode(fasthttp.StatusNotImplemented)
+	fmt.Fprintf(ctx, "NotImplemented")
+}
+
+func sandboxDeleteHandler(ctx *fasthttp.RequestCtx) {
+	ctx.SetContentType("text/html; charset=utf-8")
+	ctx.SetStatusCode(fasthttp.StatusNotImplemented)
+	fmt.Fprintf(ctx, "NotImplemented")
+}
+
+func sandboxHeadHandler(ctx *fasthttp.RequestCtx) {
+	ctx.SetContentType("text/html; charset=utf-8")
+	ctx.SetStatusCode(fasthttp.StatusOK)
+	fmt.Fprintf(ctx, "")
 }

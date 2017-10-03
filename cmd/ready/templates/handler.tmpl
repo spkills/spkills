@@ -5,6 +5,36 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-func {{.}}Handler(ctx *fasthttp.RequestCtx) {
-	fmt.Println("{{.}}")
+func {{.}}GetHandler(ctx *fasthttp.RequestCtx) {
+
+	name := "{{.}}"
+
+	ctx.SetContentType("text/html; charset=utf-8")
+	ctx.SetStatusCode(fasthttp.StatusOK)
+	fmt.Fprintf(ctx, name)
+
+}
+
+func {{.}}PostHandler(ctx *fasthttp.RequestCtx) {
+	ctx.SetContentType("text/html; charset=utf-8")
+	ctx.SetStatusCode(fasthttp.StatusNotImplemented)
+	fmt.Fprintf(ctx, "NotImplemented")
+}
+
+func {{.}}PutHandler(ctx *fasthttp.RequestCtx) {
+	ctx.SetContentType("text/html; charset=utf-8")
+	ctx.SetStatusCode(fasthttp.StatusNotImplemented)
+	fmt.Fprintf(ctx, "NotImplemented")
+}
+
+func {{.}}DeleteHandler(ctx *fasthttp.RequestCtx) {
+	ctx.SetContentType("text/html; charset=utf-8")
+	ctx.SetStatusCode(fasthttp.StatusNotImplemented)
+	fmt.Fprintf(ctx, "NotImplemented")
+}
+
+func {{.}}HeadHandler(ctx *fasthttp.RequestCtx) {
+	ctx.SetContentType("text/html; charset=utf-8")
+	ctx.SetStatusCode(fasthttp.StatusOK)
+	fmt.Fprintf(ctx, "")
 }
