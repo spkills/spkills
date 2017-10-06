@@ -6,12 +6,18 @@ import (
 	"fmt"
 	"html/template"
 	"os"
+	"strings"
 )
 
 var (
 	file          = flag.String("file", "route.conf", "Path to route.conf file")
 	templatesPath = flag.String("templatesPath", "templates", "Path to route.conf file")
 )
+
+type TemplateData struct {
+	Name        string
+	CapitalName string
+}
 
 func main() {
 	cli := &Ready{outStream: os.Stdout, errStream: os.Stderr}
@@ -58,7 +64,19 @@ func (r *Ready) createRoutingFile(inDir string, funcs []string) {
 	}
 
 	tpl := template.Must(template.ParseFiles(inDir + "/routing.tmpl"))
-	err = tpl.Execute(outf, funcs)
+
+	var data []TemplateData
+	for _, v := range funcs {
+
+		data = append(data,
+			TemplateData{
+				Name:        v,
+				CapitalName: strings.Title(v),
+			},
+		)
+	}
+
+	err = tpl.Execute(outf, data)
 	if err != nil {
 		panic(err)
 	}
@@ -82,7 +100,13 @@ func (r *Ready) createHandler(filename, inDir string) {
 
 	//execute template
 	tpl := template.Must(template.ParseFiles(inDir + "/handler.tmpl"))
-	err = tpl.Execute(outf, filename)
+
+	data := TemplateData{
+		Name:        filename,
+		CapitalName: strings.Title(filename),
+	}
+
+	err = tpl.Execute(outf, data)
 	if err != nil {
 		panic(err)
 	}
