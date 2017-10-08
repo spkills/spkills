@@ -14,7 +14,7 @@ import (
 
 var db *sql.DB
 
-func InitDB(conf config.Config) {
+func InitDB(conf config.Config) *sql.DB {
 	var connectTo string
 	_, err := os.Stat(conf.Database.SocketFile)
 
@@ -49,4 +49,5 @@ func InitDB(conf config.Config) {
 
 	db.SetMaxIdleConns(conf.Database.MaxIdleConns)
 	boil.SetDB(db)
+	return db
 }
