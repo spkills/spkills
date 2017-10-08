@@ -7,10 +7,10 @@ import (
 // AddRouteing add routing path from go generate ready
 func AddRouting(router *fasthttprouter.Router) {
 
-	router.GET("/sandbox", sandboxGetHandler)
-	router.POST("/sandbox", sandboxPostHandler)
-	router.PUT("/sandbox", sandboxPutHandler)
-	router.DELETE("/sandbox", sandboxDeleteHandler)
-	router.HEAD("/sandbox", sandboxHeadHandler)
+	router.GET("/sandbox", SandboxGetHandler)
+	router.POST("/sandbox", SandboxPostHandler)
+	router.PUT("/sandbox", SandboxPutHandler)
+	router.DELETE("/sandbox", SandboxDeleteHandler)
+	router.HEAD("/sandbox", SandboxHeadHandler)
 
 }
