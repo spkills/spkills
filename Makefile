@@ -1,4 +1,5 @@
 ## Setup
 setup:
-	go get -u github.com/spkills/ready/ready-db
-	go get -u github.com/spkills/ready/ready-router
+	go get github.com/spkills/ready/ready-db
+	go get github.com/spkills/ready/ready-router
+	go get github.com/volatiletech/sqlboiler
