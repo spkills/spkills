@@ -1,12 +1,14 @@
 package model
 
 import (
+	"database/sql"
 	"fmt"
 	"time"
 
 	"github.com/go-redis/redis"
 	"github.com/spkills/spkills/repository"
 	"github.com/ugorji/go/codec"
+	. "github.com/volatiletech/sqlboiler/queries/qm"
 )
 
 func FetchRoomNameByDB(roomId int) string {
@@ -61,6 +63,30 @@ func FetchRoomNameByRedis(roomId int) string {
 func FetchRoomByDB(roomId int) *repository.Room {
 	room, _ := repository.FindRoomG(int64(roomId))
 	return room
+}
+
+func FetchRoomByDB2(roomId int) *repository.Room {
+	var room repository.Room
+	err := repository.NewQuery(db,
+		SQL(`
+			SELECT id, name, canvas_width, canvas_height, created_at FROM rooms WHERE id = ?
+			`, roomId,
+		),
+	).Bind(&room)
+	if err != nil {
+		panic(err)
+	}
+	return &room
+}
+
+func FetchRoomByDB3(roomId int) *repository.Room {
+	var room repository.Room
+	row := db.QueryRow(`SELECT id, name, canvas_width, canvas_height, created_at FROM rooms WHERE id = ?`, roomId)
+	err := row.Scan(&room.ID, &room.Name, &room.CanvasWidth, &room.CanvasHeight, &room.CreatedAt)
+	if err == sql.ErrNoRows {
+		panic(err)
+	}
+	return &room
 }
 
 func FetchRoomByCache(roomId int) *repository.Room {
