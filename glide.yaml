@@ -8,6 +8,8 @@ import:
 - package: github.com/valyala/quicktemplate
 - package: github.com/valyala/quicktemplate/qtc
 - package: github.com/volatiletech/sqlboiler
+- package: github.com/volatiletech/sqlboiler/boil
+- package: github.com/volatiletech/sqlboiler/queries/qm
 - package: github.com/patrickmn/go-cache
 - package: github.com/go-redis/redis
 - package: github.com/ugorji/go/codec
